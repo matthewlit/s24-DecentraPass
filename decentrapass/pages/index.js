@@ -7,7 +7,7 @@ export default function Home() {
         <title>DecentraPass - Sign In</title>
         <meta name="description" content="DeventraPass sign in page" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
     </>
   );
