@@ -4,6 +4,9 @@ import styled from "styled-components";
 import Card from "@/components/Card";
 import FancyButton from "@/components/FancyButton";
 import Colors from "@/library/Colors";
+import ImageBackground from "@/components/ImageBackground";
+//React
+import { useRouter } from "next/router";
 
 /**************************************************************************
   File: index.js
@@ -13,8 +16,10 @@ import Colors from "@/library/Colors";
 
 export default function Home() {
 
-  function Login() {
+  const router = useRouter();
 
+  function Login() {
+    router.push("/loading");
   }
 
   return (
@@ -25,8 +30,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
-      <Page>
-        <BackgroundImage/>
+      <ImageBackground>
         {/* Sign In Form */}
         <Card>
           <SignInWrapper>
@@ -41,38 +45,12 @@ export default function Home() {
             </FancyButton>
           </SignInWrapper>
         </Card>
-      </Page>
+      </ImageBackground>
     </>
   );
 }
 
 // Styled components
-
-const Page = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: ${Colors.text};
-  background: linear-gradient(
-    180deg,
-    ${Colors.backgroundDark},
-    ${Colors.accentDark}
-  );
-`;
-
-const BackgroundImage = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("background.png");
-  background-position: center; 
-  background-repeat: no-repeat; 
-  background-size: cover;
-  opacity: 20%;
-`
 
 const Title = styled.h1`
   font-size: 2.5vw;
@@ -94,7 +72,8 @@ const SignInLabel = styled.label`
 const SignInInput = styled.input`
   margin: 0.5vw;
   padding: 0.5vw;
-  font-size: 1vw;
+  width: 12vw;
+  font-size: 0.75vw;
   border-radius: 0.5vw;
   border: None;
   transition: 0.25s;

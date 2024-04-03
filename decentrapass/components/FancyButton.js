@@ -9,25 +9,9 @@ import Colors from "../library/Colors";
   Description: Button Component
 **************************************************************************/
 
-const FancyButton = ({ children }) => {
-  return <Button>{children}</Button>;
+const FancyButton = ({ children, onClick, active = false }) => {
+  return <Button onClick={onClick} active={active}>{children}</Button>;
 };
-
-const Button1 = styled.button`
-  background-color: ${Colors.accentDark};
-  width: 15vw;
-  height: 2.5vw;
-  margin-top: 1vw;
-  color: ${Colors.text};
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  border-radius: 0.5vw;
-  transition: 0.5s;
-  &:hover {
-    background-color: ${Colors.accentLight};
-  }
-`;
 
 const Button = styled.button`
   margin-top: 1vw;
@@ -42,13 +26,20 @@ const Button = styled.button`
   display: block;
   border: none;
   font-weight: 700;
-  box-shadow: 0vw 0vw 14vw -7vw ${Colors.accentLight};
-  background-image: linear-gradient(
-    45deg,
-    ${Colors.accentDark} 0%,
-    ${Colors.accentLight} 50%,
-    ${Colors.accentLight} 100%
-  );
+  background-image: ${(props) =>
+    props.active ? `linear-gradient(
+      45deg,
+      ${Colors.accentDark},
+      ${Colors.accentLight}
+    )`
+    : `linear-gradient(
+      45deg,
+      ${Colors.primary} 0%,
+      ${Colors.tertiary} 33%,
+      ${Colors.accentLight} 66%,
+      ${Colors.accentDark} 100%
+    )`
+  };
   cursor: pointer;
   &:hover {
     background-position: right center;
