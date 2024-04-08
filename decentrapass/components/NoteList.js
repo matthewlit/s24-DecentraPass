@@ -319,7 +319,7 @@ const Textarea = styled.textarea`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10vw, 1fr));
-  gap: 1.5vw;
+  grid-template-columns: repeat(auto-fill, minmax(10vw, 12.5vw));
+  gap: 1vw;
 `;
 export default NoteList;
