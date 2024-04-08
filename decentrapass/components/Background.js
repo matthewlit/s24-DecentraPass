@@ -13,7 +13,12 @@ const Background = ({ children }) => {
 };
 
 const Container = styled.div`
-  background-color: ${Colors.backgroundDark};
+   background: linear-gradient(
+    180deg,
+    ${Colors.backgroundLight} 50%,
+    ${Colors.backgroundDark} 75%,
+    black 150%
+  );
   margin-left: 17%;
   position: fixed;
   height: 100vh;

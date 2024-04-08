@@ -6,6 +6,10 @@ import FancyButton from "@/components/FancyButton";
 import Colors from "@/library/Colors";
 import Navbar from "@/components/Navbar";
 import Background from "@/components/Background";
+import PasswordList from "@/components/PasswordList";
+import SearchBar from "@/components/SearchBar";
+// React
+import { useState, useEffect } from "react";
 
 /**************************************************************************
   File: vault.js
@@ -14,6 +18,37 @@ import Background from "@/components/Background";
 **************************************************************************/
 
 export default function Vault() {
+  const [passwords, setPasswords] = useState([]);
+  const [filteredPasswords, setFilteredPasswords] = useState([]);
+
+  // Function to fetch passwords
+  function getPasswords() {
+    const data = [
+      { id: 1, site: "Google", url: "https://google.com", password: "test" },
+      {
+        id: 2,
+        site: "ChatGPT",
+        url: "https://chat.openai.com",
+        password: "test",
+      },
+      { id: 3, site: "GitHub", url: "https://github.com/", password: "test" },
+    ];
+    setPasswords(data);
+    setFilteredPasswords(data);
+  }
+
+  // Function to handle search
+  function onSearch(query) {
+    const filtered = passwords.filter((password) =>
+      password.site.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredPasswords(filtered);
+  }
+
+  // Fetch passwords on initial render
+  useEffect(() => {
+    getPasswords();
+  }, []);
 
   return (
     <>
@@ -24,9 +59,16 @@ export default function Vault() {
         <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
       <Page>
-        <Navbar/>
+        <Navbar />
         <Background>
-            
+          <SearchContainer>
+            <SearchBar onSearch={onSearch} />
+          </SearchContainer>
+          <ListContainer>
+            <Card>
+              <PasswordList data={filteredPasswords} />
+            </Card>
+          </ListContainer>
         </Background>
       </Page>
     </>
@@ -35,6 +77,13 @@ export default function Vault() {
 
 // Styled components
 
-const Page = styled.div`
-  
+const Page = styled.div``;
+
+const ListContainer = styled.div`
+  margin: 2vw;
+  width: 50%;
+`;
+
+const SearchContainer = styled.div`
+  margin-left: 2vw;
 `;

@@ -57,11 +57,11 @@ const Content = styled.div`
   z-index: 1;
   background: linear-gradient(
     0deg,
-    ${Colors.backgroundLight} 33%,
-    ${Colors.primary} 100%
+    ${Colors.backgroundLight} 10%,
+    black 100%
   );
   border-radius: 1.5vw;
-  padding: 3vw;
+  padding: 2vw;
 `;
 
 export default Card;

@@ -71,6 +71,7 @@ const SignInLabel = styled.label`
 
 const SignInInput = styled.input`
   margin: 0.5vw;
+  margin-bottom: 1vw;
   padding: 0.5vw;
   width: 12vw;
   font-size: 0.75vw;
@@ -85,4 +86,6 @@ const SignInInput = styled.input`
 const Logo = styled.img`
   width: 10vw;
   margin: 1vw;
+  border-radius: 1.5vw;
+  box-shadow: 0px 0px 10px ${Colors.secondary};
 `;

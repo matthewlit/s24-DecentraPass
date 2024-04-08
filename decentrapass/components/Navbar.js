@@ -4,7 +4,6 @@ import Colors from "../library/Colors";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import FancyButton from "./FancyButton";
-import ImageBackground from "./ImageBackground";
 
 /**************************************************************************
   File: Navbar.js
@@ -56,14 +55,15 @@ const Container = styled.div`
   flex-direction: column;
   padding: 1vw;
   background: linear-gradient(
-    0deg,
-    ${Colors.backgroundLight} 33%,
-    ${Colors.primary} 100%
+    180deg,
+    ${Colors.backgroundLight} 0%,
+    black 100%
   );
-  border-right: 1vw ${Colors.secondary} solid;
+  border-right: 1vw black solid;
   position: fixed;
   height: 100%;
   overflow: auto;
+  gap: 1vw;
 `;
 
 const LogoContainer = styled.div`
@@ -72,18 +72,22 @@ const LogoContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 13vw;
+  width: 12vw;
 `;
 
 const NavButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.5vw
 `;
 
 const SignOutButtonContainer = styled.div`
   margin-top: auto;
   margin-bottom: 2.5vw;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Navbar;

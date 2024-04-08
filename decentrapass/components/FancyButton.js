@@ -9,16 +9,19 @@ import Colors from "../library/Colors";
   Description: Button Component
 **************************************************************************/
 
-const FancyButton = ({ children, onClick, active = false }) => {
-  return <Button onClick={onClick} active={active}>{children}</Button>;
+const FancyButton = ({ children, onClick, active = false, size = "big" }) => {
+  return (
+    <Button onClick={onClick} active={active} size={size}>
+      {children}
+    </Button>
+  );
 };
 
 const Button = styled.button`
-  margin-top: 1vw;
-  width: 15vw;
-  height: 2.5vw;
+  width: ${(props) => (props.size === "small" ? `5vw` : `12vw`)};
+  height: 2vw;
   color: ${Colors.text};
-  font-size: 1.25vw;
+  font-size: 1vw;
   text-align: center;
   transition: 0.5s;
   background-size: 200% auto;
@@ -27,24 +30,25 @@ const Button = styled.button`
   border: none;
   font-weight: 700;
   background-image: ${(props) =>
-    props.active ? `linear-gradient(
+    props.active
+      ? `linear-gradient(
       45deg,
       ${Colors.accentDark},
       ${Colors.accentLight}
     )`
-    : `linear-gradient(
+      : `linear-gradient(
       45deg,
       ${Colors.primary} 0%,
       ${Colors.tertiary} 33%,
       ${Colors.accentLight} 66%,
       ${Colors.accentDark} 100%
-    )`
-  };
+    )`};
   cursor: pointer;
   &:hover {
     background-position: right center;
+    transform: scale(1.1);
     &:active {
-      transform: scale(0.90);
+      transform: scale(0.9);
     }
   }
 `;
