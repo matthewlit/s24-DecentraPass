@@ -1,56 +1,51 @@
 import Head from "next/head";
-// Components
 import styled from "styled-components";
 import Card from "@/components/Card";
 import FancyButton from "@/components/FancyButton";
 import Colors from "@/library/Colors";
 import Navbar from "@/components/Navbar";
 import Background from "@/components/Background";
-import PasswordList from "@/components/PasswordList";
+import NoteList from "@/components/NoteList"; // Importing NoteList component
 import SearchBar from "@/components/SearchBar";
-// React
 import { useState, useEffect } from "react";
 
 /**************************************************************************
-  File: vault.js
+  File: notes.js
   Author: Matthew Kelleher
-  Description: Handles all components and function for the password vault page
+  Description: Handles all components and function for the notes vault page
 **************************************************************************/
 
 export default function Vault() {
-  const [passwords, setPasswords] = useState([]);
-  const [filteredPasswords, setFilteredPasswords] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
 
-  // Function to fetch passwords
-  function getPasswords() {
-    //Sample data
+  function getNotes() {
+    // Sample data
     const data = [
-      { id: 1, site: "Google", url: "https://google.com", username: "test", password: "test" },
-      {id: 2, site: "ChatGPT", url: "https://chat.openai.com", username: "test", password: "test",},
-      { id: 3, site: "GitHub", url: "https://github.com/", username: "test", password: "test" },
+      { id: 1, title: "Note 1", content: "Content of Note 1" },
+      { id: 2, title: "Note 2", content: "Content of Note 2" },
+      { id: 3, title: "Note 3", content: "Content of Note 3" },
     ];
-    setPasswords(data);
-    setFilteredPasswords(data);
+    setNotes(data);
+    setFilteredNotes(data);
   }
 
-  // Function to handle search
   function onSearch(query) {
-    const filtered = passwords.filter((password) =>
-      password.site.toLowerCase().includes(query.toLowerCase())
+    const filtered = notes.filter((note) =>
+      note.title.toLowerCase().includes(query.toLowerCase())
     );
-    setFilteredPasswords(filtered);
+    setFilteredNotes(filtered);
   }
 
-  // Fetch passwords on initial render
   useEffect(() => {
-    getPasswords();
+    getNotes();
   }, []);
 
   return (
     <>
       <Head>
-        <title>DecentraPass - Vault</title>
-        <meta name="description" content="DeventraPass password vault page" />
+        <title>DecentraPass - Notes</title>
+        <meta name="description" content="DeventraPass note vault page" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
@@ -62,7 +57,7 @@ export default function Vault() {
           </SearchContainer>
           <ListContainer>
             <Card>
-              <PasswordList data={filteredPasswords} />
+              <NoteList data={filteredNotes} />
             </Card>
           </ListContainer>
         </Background>
@@ -70,8 +65,6 @@ export default function Vault() {
     </>
   );
 }
-
-// Styled components
 
 const Page = styled.div``;
 

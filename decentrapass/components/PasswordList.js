@@ -20,6 +20,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
   const [editMode, setEditMode] = useState(false);
   const [editedSite, setEditedSite] = useState("");
   const [editedURL, setEditedURL] = useState("");
+  const [editedUsername, setEditedUsername] = useState("");
   const [editedPassword, setEditedPassword] = useState("");
 
   // Open popup when more info is clicked
@@ -50,6 +51,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     setEditMode(true);
     setEditedSite(item.site);
     setEditedURL(item.url);
+    setEditedUsername(item.username);
     setEditedPassword(item.password);
   };
 
@@ -58,6 +60,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
       ...selectedItem,
       site: editedSite !== "" ? editedSite : selectedItem.site,
       url: editedURL !== "" ? editedURL : selectedItem.url,
+      username: editedUsername !== "" ? editedUsername : selectedItem.username,
       password: editedPassword !== "" ? editedPassword : selectedItem.password,
     };
     const index = items.findIndex((i) => i.id === selectedItem.id);
@@ -82,6 +85,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
       id: newId,
       site: editedSite !== "" ? editedSite : "New Site",
       url: editedURL !== "" ? editedURL : "http://example.com",
+      username: editedUsername !== "" ? editedUsername : "New Username",
       password: editedPassword !== "" ? editedPassword : "New Password",
     };
 
@@ -93,6 +97,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     setEditMode(true);
     setEditedSite("");
     setEditedURL("");
+    setEditedUsername("");
     setEditedPassword("");
   };
 
@@ -160,6 +165,12 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
                       onChange={(e) => setEditedURL(e.target.value)}
                     />
                     <Input
+                      type="text"
+                      placeholder={selectedItem.username}
+                      value={editedUsername}
+                      onChange={(e) => setEditedUsername(e.target.value)}
+                    />
+                    <Input
                       type={"password"}
                       placeholder="*******"
                       value={editedPassword}
@@ -185,6 +196,10 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
                       <ClickableText href={selectedItem.url} target="_blank">
                         {selectedItem.url}
                       </ClickableText>
+                    </InfoWrapper>
+                    <InfoWrapper>
+                      <Title>Username:</Title>
+                      <Text>{selectedItem.username}</Text>
                     </InfoWrapper>
                     <InfoWrapper>
                       <Title>Password: </Title>

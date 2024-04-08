@@ -34,6 +34,9 @@ const Navbar = () => {
         <Link href="/vault">
           <FancyButton active={router.pathname === "/vault"}>Password Vault</FancyButton>
         </Link>
+        <Link href="/notes">
+          <FancyButton active={router.pathname === "/notes"}>Note Vault</FancyButton>
+        </Link>
         <Link href="/settings">
           <FancyButton active={router.pathname === "/settings"}>Settings</FancyButton>
         </Link>
