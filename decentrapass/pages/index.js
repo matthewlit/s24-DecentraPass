@@ -7,6 +7,7 @@ import Colors from "@/library/Colors";
 import ImageBackground from "@/components/ImageBackground";
 //React
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 /**************************************************************************
   File: index.js
@@ -15,12 +16,27 @@ import { useRouter } from "next/router";
 **************************************************************************/
 
 export default function Home() {
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const router = useRouter();
 
   function Login() {
     router.push("/loading");
   }
+
+  function signUp(){
+    router.push("/loading");
+  }
+
+  const openPopup = () => {
+    setShowSignUp(true)
+  };
+
+  const closePopup = () => {
+    setShowSignUp(false)
+  };
 
   return (
     <>
@@ -37,14 +53,45 @@ export default function Home() {
             <Title>DecentraPass</Title>
             <Logo src="Logo.png"></Logo>
             <SignInLabel>Email:</SignInLabel>
-            <SignInInput type="email"/>
+            <SignInInput type="email" />
             <SignInLabel>Password:</SignInLabel>
-            <SignInInput type="password"/>
-            <FancyButton type="submit" onClick={Login}>
-              Login
-            </FancyButton>
+            <SignInInput type="password" />
+            <ButtonContainer>
+              <FancyButton type="submit" onClick={Login}>
+                Login
+              </FancyButton>
+              <FancyButton onClick={openPopup} size="small">
+                Sign Up
+              </FancyButton>
+            </ButtonContainer>
           </SignInWrapper>
         </Card>
+        {showSignUp && (
+          <PopupOverlay>
+            <Card>
+              <SignInWrapper>
+              <Title>Sign Up</Title>
+              <Logo src="Logo.png"></Logo>
+              <SignInLabel>Email:</SignInLabel>
+              <SignInInput
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <SignInLabel>Password:</SignInLabel>
+              <SignInInput
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <ButtonContainer>
+                <FancyButton onClick={signUp}>Sign Up</FancyButton>
+                <FancyButton onClick={closePopup}>Cancel</FancyButton>
+              </ButtonContainer>
+              </SignInWrapper>
+            </Card>
+          </PopupOverlay>
+        )}
       </ImageBackground>
     </>
   );
@@ -55,7 +102,7 @@ export default function Home() {
 const Title = styled.h1`
   font-size: 2.5vw;
   text-align: center;
-`
+`;
 
 const SignInWrapper = styled.div`
   display: flex;
@@ -79,13 +126,35 @@ const SignInInput = styled.input`
   border: None;
   transition: 0.25s;
   &:active {
-      transform: scale(0.95);
-    }
+    transform: scale(0.95);
+  }
 `;
 
 const Logo = styled.img`
   width: 10vw;
-  margin: 1vw;
+  margin: 2vw;
   border-radius: 1.5vw;
   box-shadow: 0px 0px 10px ${Colors.secondary};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+  margin-top: 1vw;
+`;
+
+const PopupOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
 `;
