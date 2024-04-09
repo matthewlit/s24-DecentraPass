@@ -1,9 +1,9 @@
 import Head from "next/head";
 // Components
 import styled from "styled-components";
+import Colors from "@/library/Colors";
 import Card from "@/components/Card";
 import FancyButton from "@/components/FancyButton";
-import Colors from "@/library/Colors";
 import ImageBackground from "@/components/ImageBackground";
 //React
 import { useRouter } from "next/router";
@@ -16,26 +16,31 @@ import { useState } from "react";
 **************************************************************************/
 
 export default function Home() {
+  // Declare useState variables
   const [showSignUp, setShowSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
 
+  // Run on login button press
   function Login() {
     router.push("/loading");
   }
 
-  function signUp(){
+  // Run on sign up button press
+  function signUp() {
     router.push("/loading");
   }
 
+  // Opens sign up popup
   const openPopup = () => {
-    setShowSignUp(true)
+    setShowSignUp(true);
   };
 
+  // Closes sign up popup
   const closePopup = () => {
-    setShowSignUp(false)
+    setShowSignUp(false);
   };
 
   return (
@@ -66,28 +71,29 @@ export default function Home() {
             </ButtonContainer>
           </SignInWrapper>
         </Card>
+        {/* Sign Up Form Popup */}
         {showSignUp && (
           <PopupOverlay>
             <Card>
               <SignInWrapper>
-              <Title>Sign Up</Title>
-              <Logo src="Logo.png"></Logo>
-              <SignInLabel>Email:</SignInLabel>
-              <SignInInput
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <SignInLabel>Password:</SignInLabel>
-              <SignInInput
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <ButtonContainer>
-                <FancyButton onClick={signUp}>Sign Up</FancyButton>
-                <FancyButton onClick={closePopup}>Cancel</FancyButton>
-              </ButtonContainer>
+                <Title>Sign Up</Title>
+                <Logo src="Logo.png"></Logo>
+                <SignInLabel>Email:</SignInLabel>
+                <SignInInput
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <SignInLabel>Password:</SignInLabel>
+                <SignInInput
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <ButtonContainer>
+                  <FancyButton onClick={signUp}>Sign Up</FancyButton>
+                  <FancyButton onClick={closePopup}>Cancel</FancyButton>
+                </ButtonContainer>
               </SignInWrapper>
             </Card>
           </PopupOverlay>

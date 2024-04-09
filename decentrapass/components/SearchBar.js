@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Colors from "../library/Colors";
 import { useRef } from "react";
 import FancyButton from "./FancyButton";
 
@@ -10,7 +9,7 @@ import FancyButton from "./FancyButton";
   Description: Search Bar component
 **************************************************************************/
 
-const SearchBar = ({onSearch }) => {
+const SearchBar = ({ onSearch }) => {
   // Ref to search bar contents
   const serachRef = useRef(null);
 
@@ -22,8 +21,10 @@ const SearchBar = ({onSearch }) => {
 
   return (
     <Container>
-      <SearchInput ref={serachRef} type="text" placeholder="Search..."/>
-      <FancyButton onClick={Search} size="small" active="true">Search</FancyButton>
+      <SearchInput ref={serachRef} type="text" placeholder="Search..." />
+      <FancyButton onClick={Search} size="small" active="true">
+        Search
+      </FancyButton>
     </Container>
   );
 };

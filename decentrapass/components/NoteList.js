@@ -11,22 +11,26 @@ import Card from "./Card";
 **************************************************************************/
 
 const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
+  // Declare useState variables
   const [selectedNote, setSelectedNote] = useState(null);
   const [notes, setNotes] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
 
+  // Open note popup
   const openNote = (note) => {
     setSelectedNote(null);
     setEditMode(false);
     setSelectedNote(note);
   };
 
+  // Close not popup
   const closeNote = () => {
     setSelectedNote(null);
   };
 
+  // Remove note from data
   const removeNote = (note) => {
     setSelectedNote(null);
     const index = notes.findIndex((n) => n.id === note.id);
@@ -37,12 +41,14 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
     }
   };
 
+  // Set popup to edit mode
   const editNote = (note) => {
     setEditMode(true);
     setEditedTitle(note.title);
     setEditedContent(note.content);
   };
 
+  // Save edit note
   const saveEdit = () => {
     const updatedNote = {
       ...selectedNote,
@@ -59,10 +65,12 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
     setSelectedNote(updatedNote);
   };
 
+  // Cancel edit and return to normal pop up
   const cancelEdit = () => {
     setEditMode(false);
   };
 
+  // Add a new note to data
   const addNewNote = () => {
     const newId = Date.now().toString();
     const newNote = {
@@ -77,12 +85,14 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
     setEditedContent("");
   };
 
+  // Render note list on change
   useEffect(() => {
     setNotes(data);
   }, [data]);
 
   return (
     <>
+      {/* Notes list */}
       <Container>
         <OptionWrapper>
           <FancyButton onClick={addNewNote} size="big">
@@ -109,10 +119,12 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
         )}
       </Container>
       <Container>
+        {/* Pop up */}
         {selectedNote && (
           <Popup>
             <Card>
               <PopupWrapper>
+                {/* Edit mode */}
                 {editMode ? (
                   <>
                     <Input
@@ -137,6 +149,7 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
                   </>
                 ) : (
                   <>
+                    {/* View mode  */}
                     <InfoWrapper>
                       <Title>Title: {selectedNote.title}</Title>
                     </InfoWrapper>
@@ -182,7 +195,7 @@ const Container = styled.div`
 `;
 
 const Item = styled.div`
-    width: 10vw;
+  width: 10vw;
   background: linear-gradient(
     45deg,
     ${Colors.tertiary} 50%,

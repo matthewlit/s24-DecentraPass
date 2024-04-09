@@ -32,13 +32,19 @@ const Navbar = () => {
       {/* Navigation Buttons */}
       <NavButtonContainer>
         <Link href="/vault">
-          <FancyButton active={router.pathname === "/vault"}>Password Vault</FancyButton>
+          <FancyButton active={router.pathname === "/vault"}>
+            Password Vault
+          </FancyButton>
         </Link>
         <Link href="/notes">
-          <FancyButton active={router.pathname === "/notes"}>Note Vault</FancyButton>
+          <FancyButton active={router.pathname === "/notes"}>
+            Note Vault
+          </FancyButton>
         </Link>
         <Link href="/settings">
-          <FancyButton active={router.pathname === "/settings"}>Settings</FancyButton>
+          <FancyButton active={router.pathname === "/settings"}>
+            Settings
+          </FancyButton>
         </Link>
       </NavButtonContainer>
 
@@ -57,11 +63,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1vw;
-  background: linear-gradient(
-    180deg,
-    ${Colors.backgroundLight} 0%,
-    black 100%
-  );
+  background: linear-gradient(180deg, ${Colors.backgroundLight} 0%, black 100%);
   border-right: 1vw black solid;
   position: fixed;
   height: 100%;
@@ -82,7 +84,7 @@ const NavButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5vw
+  gap: 1.5vw;
 `;
 
 const SignOutButtonContainer = styled.div`

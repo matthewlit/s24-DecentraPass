@@ -9,10 +9,12 @@ import Colors from "../library/Colors";
 **************************************************************************/
 
 const ImageBackground = ({ children }) => {
-  return <Page>
-  <BackgroundImage/>
-  {children}
-</Page>;
+  return (
+    <Page>
+      <BackgroundImage />
+      {children}
+    </Page>
+  );
 };
 
 const Page = styled.div`
@@ -35,10 +37,10 @@ const BackgroundImage = styled.div`
   width: 100%;
   height: 100%;
   background-image: url("background.png");
-  background-position: center; 
-  background-repeat: no-repeat; 
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
   opacity: 20%;
-`
+`;
 
 export default ImageBackground;

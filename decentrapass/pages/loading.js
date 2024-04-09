@@ -1,8 +1,8 @@
 import Head from "next/head";
 // Components
 import styled from "styled-components";
-import Colors from "@/library/Colors";
 import { keyframes } from "styled-components";
+import Colors from "@/library/Colors";
 import ImageBackground from "@/components/ImageBackground";
 // React
 import { useRouter } from "next/router";
@@ -17,6 +17,7 @@ import React, { useEffect } from "react";
 export default function Loading() {
   const router = useRouter();
 
+  // Temp: Load Screen on timer
   useEffect(() => {
     setTimeout(() => {
       router.push("/vault");

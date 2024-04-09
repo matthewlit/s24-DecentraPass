@@ -1,12 +1,12 @@
 import Head from "next/head";
+// Components 
 import styled from "styled-components";
 import Card from "@/components/Card";
-import FancyButton from "@/components/FancyButton";
-import Colors from "@/library/Colors";
 import Navbar from "@/components/Navbar";
 import Background from "@/components/Background";
-import NoteList from "@/components/NoteList"; // Importing NoteList component
+import NoteList from "@/components/NoteList";
 import SearchBar from "@/components/SearchBar";
+// React
 import { useState, useEffect } from "react";
 
 /**************************************************************************
@@ -16,9 +16,11 @@ import { useState, useEffect } from "react";
 **************************************************************************/
 
 export default function Vault() {
+  // Declare useState variables
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
 
+  // Gets user note data
   function getNotes() {
     // Sample data
     const data = [
@@ -30,6 +32,7 @@ export default function Vault() {
     setFilteredNotes(data);
   }
 
+  // Filters list based on search
   function onSearch(query) {
     const filtered = notes.filter((note) =>
       note.title.toLowerCase().includes(query.toLowerCase())
@@ -37,6 +40,7 @@ export default function Vault() {
     setFilteredNotes(filtered);
   }
 
+  // Get notes on first render
   useEffect(() => {
     getNotes();
   }, []);

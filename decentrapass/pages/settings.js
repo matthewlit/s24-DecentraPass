@@ -16,9 +16,11 @@ import { useState } from "react";
 **************************************************************************/
 
 export default function Settings() {
+  // Declare useState variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Run on profile info change
   const updateProfile = () => {};
 
   return (
@@ -36,6 +38,7 @@ export default function Settings() {
             <Title>Settings</Title>
             <SettingsSection>
               <Card>
+                {/* Profile Settings */}
                 <SectionTitle>Profile Settings</SectionTitle>
                 <ProfileForm>
                   <InputLabel>Email:</InputLabel>
@@ -50,7 +53,9 @@ export default function Settings() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <FancyButton onClick={updateProfile}>Save Changes</FancyButton>
+                  <FancyButton onClick={updateProfile}>
+                    Save Changes
+                  </FancyButton>
                 </ProfileForm>
               </Card>
             </SettingsSection>

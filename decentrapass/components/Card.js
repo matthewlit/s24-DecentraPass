@@ -32,7 +32,7 @@ const AnimatedBorder = styled.div`
   height: 100%;
   background: conic-gradient(
     transparent 20deg,
-    ${Colors.accentLight}, 
+    ${Colors.accentLight},
     50deg,
     transparent 100deg
   );
@@ -55,11 +55,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   position: relative;
   z-index: 1;
-  background: linear-gradient(
-    0deg,
-    ${Colors.backgroundLight} 10%,
-    black 100%
-  );
+  background: linear-gradient(0deg, ${Colors.backgroundLight} 10%, black 100%);
   border-radius: 1.5vw;
   padding: 2vw;
 `;

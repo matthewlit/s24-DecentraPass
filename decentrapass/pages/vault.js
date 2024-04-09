@@ -2,8 +2,6 @@ import Head from "next/head";
 // Components
 import styled from "styled-components";
 import Card from "@/components/Card";
-import FancyButton from "@/components/FancyButton";
-import Colors from "@/library/Colors";
 import Navbar from "@/components/Navbar";
 import Background from "@/components/Background";
 import PasswordList from "@/components/PasswordList";
@@ -25,9 +23,27 @@ export default function Vault() {
   function getPasswords() {
     //Sample data
     const data = [
-      { id: 1, site: "Google", url: "https://google.com", username: "test", password: "test" },
-      {id: 2, site: "ChatGPT", url: "https://chat.openai.com", username: "test", password: "test",},
-      { id: 3, site: "GitHub", url: "https://github.com/", username: "test", password: "test" },
+      {
+        id: 1,
+        site: "Google",
+        url: "https://google.com",
+        username: "test",
+        password: "test",
+      },
+      {
+        id: 2,
+        site: "ChatGPT",
+        url: "https://chat.openai.com",
+        username: "test",
+        password: "test",
+      },
+      {
+        id: 3,
+        site: "GitHub",
+        url: "https://github.com/",
+        username: "test",
+        password: "test",
+      },
     ];
     setPasswords(data);
     setFilteredPasswords(data);

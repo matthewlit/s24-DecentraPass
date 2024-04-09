@@ -47,6 +47,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     }
   };
 
+  // Change pop up to edit mode
   const edit = (item) => {
     setEditMode(true);
     setEditedSite(item.site);
@@ -55,6 +56,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     setEditedPassword(item.password);
   };
 
+  // Save edit to data
   const saveEdit = () => {
     const updatedItem = {
       ...selectedItem,
@@ -73,10 +75,12 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     setSelectedItem(updatedItem);
   };
 
+  // Cancel edit adn return to view mode
   const cancelEdit = () => {
     setEditMode(false);
   };
 
+  // Add to password to data
   const addNewPassword = () => {
     const newId = Date.now().toString();
 
@@ -101,12 +105,14 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     setEditedPassword("");
   };
 
+  // Render on data change
   useEffect(() => {
     setItems(data);
   }, [data]);
 
   return (
     <>
+      {/* Password list */}
       <Container>
         <OptionWrapper>
           <FancyButton onClick={addNewPassword} size="big">
@@ -150,6 +156,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
                     src={`https://www.google.com/s2/favicons?domain=${selectedItem.url}&sz=128`}
                   ></BigLogo>
                 </LogoWrapper>
+                {/* Edit mode */}
                 {editMode ? (
                   <>
                     <Input
@@ -187,6 +194,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
                   </>
                 ) : (
                   <>
+                    {/* View mode */}
                     <InfoWrapper>
                       <Title>WebSite:</Title>
                       <Text>{selectedItem.site}</Text>
@@ -204,6 +212,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
                     <InfoWrapper>
                       <Title>Password: </Title>
                       <Text>
+                        {/* Show and hide password */}
                         {showPassword ? selectedItem.password : `*******`}
                         <ToggleButton
                           onClick={() => setShowPassword(!showPassword)}
