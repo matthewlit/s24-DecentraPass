@@ -20,7 +20,7 @@ export default function Loading() {
   useEffect(() => {
     setTimeout(() => {
       router.push("/vault");
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (

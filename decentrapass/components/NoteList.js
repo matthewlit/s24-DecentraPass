@@ -184,16 +184,17 @@ const Container = styled.div`
 const Item = styled.div`
     width: 10vw;
   background: linear-gradient(
-    90deg,
+    45deg,
     ${Colors.tertiary} 50%,
     ${Colors.secondary} 100%
   );
   border-radius: 2vw;
-  padding: 1rem;
+  padding: 1vw;
+  box-shadow: 0 0 0.3vw ${Colors.primary};
   &:hover {
     transform: scale(1.05);
     background: linear-gradient(
-      90deg,
+      45deg,
       ${Colors.accentDark} 50%,
       ${Colors.accentLight} 100%
     );

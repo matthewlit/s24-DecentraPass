@@ -15,8 +15,8 @@ const Background = ({ children }) => {
 const Container = styled.div`
    background: linear-gradient(
     180deg,
-    ${Colors.backgroundLight} 50%,
-    ${Colors.backgroundDark} 75%,
+    ${Colors.backgroundLight} 25%,
+    ${Colors.backgroundDark} 50%,
     black 150%
   );
   margin-left: 17%;

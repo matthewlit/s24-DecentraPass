@@ -9,8 +9,8 @@ const Colors = {
   backgroundLight: "#020659",
   backgroundDark: "#010440",
   primary: "#026873",
-  secondary: "#C3F8FD",
-  tertiary: "#00A6FB",
+  secondary: "#00A6FB",
+  tertiary: "#006eab",
   accentDark: "#055902",
   accentLight: "#55D976",
 };

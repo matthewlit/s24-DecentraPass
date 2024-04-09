@@ -257,16 +257,17 @@ const Item = styled.div`
   display: flex;
   flex-direction: row;
   background: linear-gradient(
-    90deg,
+    45deg,
     ${Colors.tertiary} 50%,
     ${Colors.secondary} 100%
   );
+  box-shadow: 0 0 0.3vw ${Colors.primary};
   border-radius: 2vw;
   width: 100%;
   &:hover {
     transform: scale(1.05);
     background: linear-gradient(
-      90deg,
+      45deg,
       ${Colors.accentDark} 50%,
       ${Colors.accentLight} 100%
     );
