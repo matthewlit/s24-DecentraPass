@@ -1,5 +1,10 @@
 [
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -13,44 +18,16 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "uid",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "newURI",
-				"type": "string"
-			}
-		],
-		"name": "storePasswordURI",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
+		"name": "getAllPasswordURI",
+		"outputs": [
 			{
-				"internalType": "string",
-				"name": "uid",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "newURI",
-				"type": "string"
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
-		"name": "updatePasswordURI",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -83,6 +60,42 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "uid",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "newURI",
+				"type": "string"
+			}
+		],
+		"name": "storePasswordURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "uid",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "newURI",
+				"type": "string"
+			}
+		],
+		"name": "updatePasswordURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
