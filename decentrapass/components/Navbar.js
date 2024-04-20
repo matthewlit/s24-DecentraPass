@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Colors from "../library/Colors";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import FancyButton from "./FancyButton";
+import {
+  useAddress,
+} from "@thirdweb-dev/react";
+import Card from "./Card";
 
 /**************************************************************************
   File: Navbar.js
@@ -14,11 +18,19 @@ import FancyButton from "./FancyButton";
 // Nav Bar Component
 const Navbar = () => {
   const router = useRouter();
+  const userAddress = useAddress();
 
   // Run when sign out button clicked
   function SignOut() {
-    router.push("/");
+    location.reload();
+    router.push("/loading");
   }
+
+  useEffect(()=>{
+    if(!userAddress){
+      router.push("/");
+    }
+  }, [userAddress])
 
   return (
     <Container>
@@ -50,6 +62,13 @@ const Navbar = () => {
 
       {/* Sign Out Button */}
       <SignOutButtonContainer>
+        {/* Display User Address */}
+        <Card>
+          <UserInfo>
+            <InfoLabel>Connected Account:</InfoLabel>
+            <Info>{userAddress}</Info>
+          </UserInfo>
+        </Card>
         <FancyButton onClick={SignOut} active={false}>
           Sign Out
         </FancyButton>
@@ -87,9 +106,24 @@ const NavButtonContainer = styled.div`
   gap: 1.5vw;
 `;
 
+const UserInfo = styled.div`
+  color: ${Colors.text};
+  word-wrap: break-word;
+  text-align: center;
+  width: 10vw;
+`;
+
+const InfoLabel = styled.p`
+  font-weight: bold;
+  padding-bottom: 1vw;
+`;
+
+const Info = styled.p``;
+
 const SignOutButtonContainer = styled.div`
   margin-top: auto;
   margin-bottom: 2.5vw;
+  gap: 2vw;
   align-items: center;
   display: flex;
   flex-direction: column;

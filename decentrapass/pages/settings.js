@@ -7,7 +7,7 @@ import Colors from "@/library/Colors";
 import Navbar from "@/components/Navbar";
 import Background from "@/components/Background";
 // React
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /**************************************************************************
   File: settings.js
@@ -16,13 +16,6 @@ import { useState } from "react";
 **************************************************************************/
 
 export default function Settings() {
-  // Declare useState variables
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  // Run on profile info change
-  const updateProfile = () => {};
-
   return (
     <>
       <Head>
@@ -41,21 +34,6 @@ export default function Settings() {
                 {/* Profile Settings */}
                 <SectionTitle>Profile Settings</SectionTitle>
                 <ProfileForm>
-                  <InputLabel>Email:</InputLabel>
-                  <InputField
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputLabel>Password:</InputLabel>
-                  <InputField
-                    type="text"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <FancyButton onClick={updateProfile}>
-                    Save Changes
-                  </FancyButton>
                 </ProfileForm>
               </Card>
             </SettingsSection>

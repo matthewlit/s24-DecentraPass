@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }) {
             },
           }),
         ]}
+        autoConnect={false}
       >
         <Component {...pageProps} />
       </ThirdwebProvider>

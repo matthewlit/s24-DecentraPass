@@ -21,11 +21,11 @@ export default function Home() {
   const router = useRouter();
   const signer = useSigner();
 
-  useEffect(()=>{
-    if(signer){
-      router.push("/loading")
+  useEffect(() => {
+    if (signer) {
+      router.push("/loading");
     }
-  }, [signer])
+  }, [signer]);
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function Home() {
           <SignInWrapper>
             <Title>DecentraPass</Title>
             <Logo src="Logo.png"></Logo>
-            <ConnectEmbed/>
+            <ConnectEmbed />
           </SignInWrapper>
         </Card>
       </ImageBackground>
