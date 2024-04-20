@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "port": "COM3",
+    "sketch": "..\\..\\CMPSC\\ENGR 408\\ENGR408Web\\ENGR408Web.ino"
+}

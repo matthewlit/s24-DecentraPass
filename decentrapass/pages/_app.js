@@ -1,4 +1,6 @@
+import { embeddedWallet } from "@thirdweb-dev/react";
 import { createGlobalStyle } from "styled-components";
+import { ThirdwebProvider, metamaskWallet } from "@thirdweb-dev/react";
 
 export const GlobalStyle = createGlobalStyle`
 *{
@@ -15,7 +17,20 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <ThirdwebProvider
+        activeChain="binance-testnet"
+        clientId="c1b4f57e83bf5da4d176bd589794d1e7"
+        supportedWallets={[
+          metamaskWallet({ recommended: true }),
+          embeddedWallet({
+            auth: {
+              options: ["google"],
+            },
+          }),
+        ]}
+      >
+        <Component {...pageProps} />
+      </ThirdwebProvider>
     </>
   );
 }

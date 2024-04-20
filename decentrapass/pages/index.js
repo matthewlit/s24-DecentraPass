@@ -7,7 +7,9 @@ import FancyButton from "@/components/FancyButton";
 import ImageBackground from "@/components/ImageBackground";
 //React
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+//Thirdweb
+import { ConnectEmbed, useSigner } from "@thirdweb-dev/react";
 
 /**************************************************************************
   File: index.js
@@ -16,32 +18,14 @@ import { useState } from "react";
 **************************************************************************/
 
 export default function Home() {
-  // Declare useState variables
-  const [showSignUp, setShowSignUp] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const router = useRouter();
+  const signer = useSigner();
 
-  // Run on login button press
-  function Login() {
-    router.push("/loading");
-  }
-
-  // Run on sign up button press
-  function signUp() {
-    router.push("/loading");
-  }
-
-  // Opens sign up popup
-  const openPopup = () => {
-    setShowSignUp(true);
-  };
-
-  // Closes sign up popup
-  const closePopup = () => {
-    setShowSignUp(false);
-  };
+  useEffect(()=>{
+    if(signer){
+      router.push("/loading")
+    }
+  }, [signer])
 
   return (
     <>
@@ -57,47 +41,9 @@ export default function Home() {
           <SignInWrapper>
             <Title>DecentraPass</Title>
             <Logo src="Logo.png"></Logo>
-            <SignInLabel>Email:</SignInLabel>
-            <SignInInput type="email" />
-            <SignInLabel>Password:</SignInLabel>
-            <SignInInput type="password" />
-            <ButtonContainer>
-              <FancyButton type="submit" onClick={Login}>
-                Login
-              </FancyButton>
-              <FancyButton onClick={openPopup} size="small">
-                Sign Up
-              </FancyButton>
-            </ButtonContainer>
+            <ConnectEmbed/>
           </SignInWrapper>
         </Card>
-        {/* Sign Up Form Popup */}
-        {showSignUp && (
-          <PopupOverlay>
-            <Card>
-              <SignInWrapper>
-                <Title>Sign Up</Title>
-                <Logo src="Logo.png"></Logo>
-                <SignInLabel>Email:</SignInLabel>
-                <SignInInput
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <SignInLabel>Password:</SignInLabel>
-                <SignInInput
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <ButtonContainer>
-                  <FancyButton onClick={signUp}>Sign Up</FancyButton>
-                  <FancyButton onClick={closePopup}>Cancel</FancyButton>
-                </ButtonContainer>
-              </SignInWrapper>
-            </Card>
-          </PopupOverlay>
-        )}
       </ImageBackground>
     </>
   );
@@ -117,50 +63,9 @@ const SignInWrapper = styled.div`
   align-items: center;
 `;
 
-const SignInLabel = styled.label`
-  font-size: 1.25vw;
-  text-align: center;
-`;
-
-const SignInInput = styled.input`
-  margin: 0.5vw;
-  margin-bottom: 1vw;
-  padding: 0.5vw;
-  width: 12vw;
-  font-size: 0.75vw;
-  border-radius: 0.5vw;
-  border: None;
-  transition: 0.25s;
-  &:active {
-    transform: scale(0.95);
-  }
-`;
-
 const Logo = styled.img`
   width: 10vw;
   margin: 2vw;
   border-radius: 1.5vw;
   box-shadow: 0px 0px 10px ${Colors.secondary};
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1vw;
-  margin-top: 1vw;
-`;
-
-const PopupOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 99;
 `;
