@@ -4,6 +4,12 @@ import Colors from "../library/Colors";
 import { useState, useEffect } from "react";
 import FancyButton from "./FancyButton";
 import Card from "./Card";
+// Contract
+import { useAddress, useStorage, useSigner } from "@thirdweb-dev/react";
+import DecentraPassABI from "@/contracts/abi/DecentraPassABI";
+import { CONTRACT_ADDRESS } from "@/global-values";
+import { ethers } from "ethers";
+const crypto = require("crypto");
 
 /**************************************************************************
   File: PasswordList.js
@@ -23,6 +29,10 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
   const [editedUsername, setEditedUsername] = useState("");
   const [editedPassword, setEditedPassword] = useState("");
 
+  const storage = useStorage();
+  const userAddress = useAddress();
+  const signer = useSigner();
+
   // Open popup when more info is clicked
   const openPopup = (item) => {
     setSelectedItem(null);
@@ -36,16 +46,34 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
   };
 
   // Removes selected item from password list
-  const removeFromPasswords = (item) => {
+  async function removeFromPasswords(item) {
     // Close popup and remove from list
-    setSelectedItem(null);
     const index = items.findIndex((i) => i.id === item.id);
     if (index !== -1) {
-      const newData = [...items];
-      newData.splice(index, 1);
-      setItems(newData);
+      // Remove from data
+      const asyncFunc = async () => {
+        if (!signer) {
+          return;
+        }
+        if (!userAddress) {
+          return;
+        }
+        const contract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          DecentraPassABI,
+          signer
+        );
+        const tx = await contract.deletePasswordURI(item.id);
+        await tx.wait();
+      };
+      asyncFunc();
     }
-  };
+    setSelectedItem(null);
+
+    const newData = [...items];
+    newData.splice(index, 1);
+    setItems(newData);
+  }
 
   // Change pop up to edit mode
   const edit = (item) => {
@@ -57,7 +85,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
   };
 
   // Save edit to data
-  const saveEdit = () => {
+  async function saveEdit() {
     const updatedItem = {
       ...selectedItem,
       site: editedSite !== "" ? editedSite : selectedItem.site,
@@ -67,13 +95,32 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     };
     const index = items.findIndex((i) => i.id === selectedItem.id);
     if (index !== -1) {
-      const updatedItems = [...items];
-      updatedItems[index] = updatedItem;
-      setItems(updatedItems);
+      // Update data
+      const asyncFunc = async () => {
+        if (!signer) {
+          return;
+        }
+        if (!userAddress) {
+          return;
+        }
+        const url = await storage.upload(updatedItem);
+        const contract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          DecentraPassABI,
+          signer
+        );
+        const tx = await contract.updatePasswordURI(selectedItem.id, url);
+        await tx.wait();
+
+        const updatedItems = [...items];
+        updatedItems[index] = updatedItem;
+        setItems(updatedItems);
+      };
+      asyncFunc();
     }
     setEditMode(false);
     setSelectedItem(updatedItem);
-  };
+  }
 
   // Cancel edit adn return to view mode
   const cancelEdit = () => {
@@ -81,21 +128,37 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
   };
 
   // Add to password to data
-  const addNewPassword = () => {
-    const newId = Date.now().toString();
-
+  async function addNewPassword() {
     // Create a new password object with default values
-    const newPassword = {
-      id: newId,
-      site: editedSite !== "" ? editedSite : "New Site",
-      url: editedURL !== "" ? editedURL : "http://example.com",
-      username: editedUsername !== "" ? editedUsername : "New Username",
-      password: editedPassword !== "" ? editedPassword : "New Password",
-    };
+    try {
+      const newPassword = {
+        id: -1,
+        site: editedSite !== "" ? editedSite : "New Site",
+        url: editedURL !== "" ? editedURL : "http://example.com",
+        username: editedUsername !== "" ? editedUsername : "New Username",
+        password: editedPassword !== "" ? editedPassword : "New Password",
+      };
 
-    // Update the items array with the new password
-    setItems([...items, newPassword]);
-    setSelectedItem(newPassword);
+      // Add item to data
+      const data = JSON.stringify(newPassword) + new Date().toISOString();
+      const hash = crypto.createHash("sha256").update(data).digest("hex");
+      newPassword.id = hash;
+      console.log(newPassword);
+      const contract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        DecentraPassABI,
+        signer
+      );
+      const url = await storage.upload(newPassword);
+      const tx = await contract.storePasswordURI(hash, url);
+      await tx.wait();
+
+      // Update the items array with the new password
+      setItems([...items, newPassword]);
+      setSelectedItem(newPassword);
+    } catch (err) {
+      console.log(err);
+    }
 
     // Set edit mode to true to allow editing of the newly added password
     setEditMode(true);
@@ -103,7 +166,7 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
     setEditedURL("");
     setEditedUsername("");
     setEditedPassword("");
-  };
+  }
 
   // Render on data change
   useEffect(() => {
