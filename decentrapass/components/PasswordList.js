@@ -6,8 +6,8 @@ import FancyButton from "./FancyButton";
 import Card from "./Card";
 // Contract
 import { useAddress, useStorage, useSigner } from "@thirdweb-dev/react";
-import DecentraPassABI from "@/contracts/abi/DecentraPassABI";
-import { CONTRACT_ADDRESS } from "@/global-values";
+import DecentraPassPasswordsABI from "@/contracts/abi/DecentraPassPasswordsABI";
+import { PASSWORDS_CONTRACT_ADDRESS } from "@/global-values";
 import { ethers } from "ethers";
 const crypto = require("crypto");
 
@@ -59,8 +59,8 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
           return;
         }
         const contract = new ethers.Contract(
-          CONTRACT_ADDRESS,
-          DecentraPassABI,
+          PASSWORDS_CONTRACT_ADDRESS,
+          DecentraPassPasswordsABI,
           signer
         );
         const tx = await contract.deletePasswordURI(item.id);
@@ -105,8 +105,8 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
         }
         const url = await storage.upload(updatedItem);
         const contract = new ethers.Contract(
-          CONTRACT_ADDRESS,
-          DecentraPassABI,
+          PASSWORDS_CONTRACT_ADDRESS,
+          DecentraPassPasswordsABI,
           signer
         );
         const tx = await contract.updatePasswordURI(selectedItem.id, url);
@@ -145,8 +145,8 @@ const PasswordList = ({ data, emptyMessage = "No Saved Passwords" }) => {
       newPassword.id = hash;
       console.log(newPassword);
       const contract = new ethers.Contract(
-        CONTRACT_ADDRESS,
-        DecentraPassABI,
+        PASSWORDS_CONTRACT_ADDRESS,
+        DecentraPassPasswordsABI,
         signer
       );
       const url = await storage.upload(newPassword);

@@ -3,6 +3,12 @@ import styled from "styled-components";
 import Colors from "../library/Colors";
 import FancyButton from "./FancyButton";
 import Card from "./Card";
+// Contract
+import { useAddress, useStorage, useSigner } from "@thirdweb-dev/react";
+import DecentraPassNotesABI from "@/contracts/abi/DecentraPassNotesABI";
+import { NOTES_CONTRACT_ADDRESS } from "@/global-values";
+import { ethers } from "ethers";
+const crypto = require("crypto");
 
 /**************************************************************************
   File: NoteList.js
@@ -18,6 +24,10 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
 
+  const storage = useStorage();
+  const userAddress = useAddress();
+  const signer = useSigner();
+
   // Open note popup
   const openNote = (note) => {
     setSelectedNote(null);
@@ -31,15 +41,34 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
   };
 
   // Remove note from data
-  const removeNote = (note) => {
-    setSelectedNote(null);
+  async function removeNote(note) {
     const index = notes.findIndex((n) => n.id === note.id);
     if (index !== -1) {
-      const newNotes = [...notes];
-      newNotes.splice(index, 1);
-      setNotes(newNotes);
+      // Remove from data
+      const asyncFunc = async () => {
+        if (!signer) {
+          return;
+        }
+        if (!userAddress) {
+          return;
+        }
+        const contract = new ethers.Contract(
+          NOTES_CONTRACT_ADDRESS,
+          DecentraPassNotesABI,
+          signer
+        );
+        const tx = await contract.deleteNoteURI(note.id);
+        await tx.wait();
+      };
+      asyncFunc();
     }
-  };
+
+    setSelectedNote(null);
+
+    const newNotes = [...notes];
+    newNotes.splice(index, 1);
+    setNotes(newNotes);
+  }
 
   // Set popup to edit mode
   const editNote = (note) => {
@@ -57,9 +86,27 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
     };
     const index = notes.findIndex((n) => n.id === selectedNote.id);
     if (index !== -1) {
-      const updatedNotes = [...notes];
-      updatedNotes[index] = updatedNote;
-      setNotes(updatedNotes);
+      const asyncFunc = async () => {
+        if (!signer) {
+          return;
+        }
+        if (!userAddress) {
+          return;
+        }
+        const url = await storage.upload(updatedNote);
+        const contract = new ethers.Contract(
+          NOTES_CONTRACT_ADDRESS,
+          DecentraPassNotesABI,
+          signer
+        );
+        const tx = await contract.updateNoteURI(selectedNote.id, url);
+        await tx.wait();
+
+        const updatedNotes = [...notes];
+        updatedNotes[index] = updatedNote;
+        setNotes(updatedNotes);
+      };
+      asyncFunc();
     }
     setEditMode(false);
     setSelectedNote(updatedNote);
@@ -71,19 +118,39 @@ const NoteList = ({ data, emptyMessage = "No Saved Notes" }) => {
   };
 
   // Add a new note to data
-  const addNewNote = () => {
-    const newId = Date.now().toString();
-    const newNote = {
-      id: newId,
-      title: "New Note",
-      content: "",
-    };
-    setNotes([...notes, newNote]);
-    setSelectedNote(newNote);
+  async function addNewNote() {
+    try {
+      const newNote = {
+        id: -1,
+        title: "New Note",
+        content: "",
+      };
+
+      // Add item to data
+      const data = JSON.stringify(newNote) + new Date().toISOString();
+      const hash = crypto.createHash("sha256").update(data).digest("hex");
+      newNote.id = hash;
+      console.log(newNote);
+      const contract = new ethers.Contract(
+        NOTES_CONTRACT_ADDRESS,
+        DecentraPassNotesABI,
+        signer
+      );
+      const url = await storage.upload(newNote);
+      const tx = await contract.storeNoteURI(hash, url);
+      await tx.wait();
+
+      // Update the items array with the new note
+      setNotes([...notes, newNote]);
+      setSelectedNote(newNote);
+    } catch (err) {
+      console.log(err);
+    }
+
     setEditMode(true);
     setEditedTitle("");
     setEditedContent("");
-  };
+  }
 
   // Render note list on change
   useEffect(() => {

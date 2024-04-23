@@ -10,8 +10,8 @@ import SearchBar from "@/components/SearchBar";
 import { useState, useEffect } from "react";
 // Contract
 import { useAddress, useStorage, useSigner } from "@thirdweb-dev/react";
-import DecentraPassABI from "@/contracts/abi/DecentraPassABI";
-import { CONTRACT_ADDRESS } from "@/global-values";
+import DecentraPassPasswordsABI from "@/contracts/abi/DecentraPassPasswordsABI";
+import { PASSWORDS_CONTRACT_ADDRESS } from "@/global-values";
 import { ethers } from "ethers";
 
 /**************************************************************************
@@ -29,30 +29,6 @@ export default function Vault() {
 
   // Function to fetch passwords
   async function getPasswords() {
-    //Sample data
-    // const data = [
-    //   {
-    //     id: 1,
-    //     site: "Google",
-    //     url: "https://google.com",
-    //     username: "test",
-    //     password: "test",
-    //   },
-    //   {
-    //     id: 2,
-    //     site: "ChatGPT",
-    //     url: "https://chat.openai.com",
-    //     username: "test",
-    //     password: "test",
-    //   },
-    //   {
-    //     id: 3,
-    //     site: "GitHub",
-    //     url: "https://github.com/",
-    //     username: "test",
-    //     password: "test",
-    //   },
-    // ];
     const asyncFunc = async () => {
       if (!signer) {
         return;
@@ -62,21 +38,27 @@ export default function Vault() {
       }
       const passwordList = [];
       const contract = new ethers.Contract(
-        CONTRACT_ADDRESS,
-        DecentraPassABI,
+        PASSWORDS_CONTRACT_ADDRESS,
+        DecentraPassPasswordsABI,
         signer
       );
       try {
         const passwordURIs = await contract.getAllPasswordURI();
         const dataPromises = passwordURIs.map(async (uri) => {
+          try{
           const data = await storage.download(uri);
           const metadataResponse = await fetch(data.url);
           const metadata = await metadataResponse.json();
           passwordList.push(metadata);
           return metadata;
+          } catch(err) {
+            console.log(err);
+          }
         });
         const results = await Promise.all(dataPromises);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
       setPasswords(passwordList);
       setFilteredPasswords(passwordList);
     };
