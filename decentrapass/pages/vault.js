@@ -13,6 +13,7 @@ import { useAddress, useStorage, useSigner } from "@thirdweb-dev/react";
 import DecentraPassPasswordsABI from "@/contracts/abi/DecentraPassPasswordsABI";
 import { PASSWORDS_CONTRACT_ADDRESS } from "@/global-values";
 import { ethers } from "ethers";
+import Colors from "@/library/Colors";
 
 /**************************************************************************
   File: vault.js
@@ -90,6 +91,7 @@ export default function Vault() {
         <Navbar />
         <Background>
           <SearchContainer>
+            <Title>Password Vault |</Title>
             <SearchBar onSearch={onSearch} />
           </SearchContainer>
           <ListContainer>
@@ -113,5 +115,17 @@ const ListContainer = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 2vw;
+  display: flex;
+  padding: 1vw;
+  padding-left: 2.5vw;
+  flex-direction: row;
+  gap: 1vw;
+  background-color: ${Colors.backgroundDark};
+  border-bottom: 0.2vw black solid;
 `;
+
+const Title = styled.h1`
+  font-size: 2vw;
+  font-weight: bold;
+  color: ${Colors.text};
+`

@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Background from "@/components/Background";
 import NoteList from "@/components/NoteList";
 import SearchBar from "@/components/SearchBar";
+import Colors from "@/library/Colors";
 // React
 import { useState, useEffect } from "react";
 // Contract
@@ -91,6 +92,7 @@ export default function Vault() {
         <Navbar />
         <Background>
           <SearchContainer>
+          <Title>Note Vault |</Title>
             <SearchBar onSearch={onSearch} />
           </SearchContainer>
           <ListContainer>
@@ -112,5 +114,17 @@ const ListContainer = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 2vw;
+  display: flex;
+  padding: 1vw;
+  padding-left: 2.5vw;
+  flex-direction: row;
+  gap: 1vw;
+  background-color: ${Colors.backgroundDark};
+  border-bottom: 0.2vw black solid;
 `;
+
+const Title = styled.h1`
+  font-size: 2vw;
+  font-weight: bold;
+  color: ${Colors.text};
+`

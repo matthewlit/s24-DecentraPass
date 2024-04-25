@@ -128,8 +128,10 @@ export default function Settings() {
       <Page>
         <Navbar />
         <Background>
-          <Container>
+          <TitleContainer>
             <Title>Settings</Title>
+          </TitleContainer>
+          <Container>
             <SettingsSection>
               <Card>
                 {/* Profile Settings */}
@@ -173,21 +175,29 @@ const Page = styled.div``;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 3vw;
+  margin: 2vw;
   color: ${Colors.text};
 `;
 
-const Title = styled.h2`
-  margin-bottom: 3vw;
-  margin-right: 5vw;
-  text-align: center;
-  font-size: 4vw;
+const Title = styled.h1`
+  font-size: 2vw;
   font-weight: bold;
+  color: ${Colors.text};
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  padding: 1vw;
+  padding-left: 2.5vw;
+  flex-direction: row;
+  gap: 1vw;
+  background-color: ${Colors.backgroundDark};
+  border-bottom: 0.2vw black solid;
 `;
 
 const SettingsSection = styled.div`
   margin-bottom: 3vw;
-  width: 95%;
+  width: 75vw;
 `;
 
 const SectionTitle = styled.h3`

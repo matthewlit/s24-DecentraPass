@@ -3,11 +3,10 @@ import Head from "next/head";
 import styled from "styled-components";
 import Colors from "@/library/Colors";
 import Card from "@/components/Card";
-import FancyButton from "@/components/FancyButton";
 import ImageBackground from "@/components/ImageBackground";
 //React
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 //Thirdweb
 import { ConnectEmbed, useSigner } from "@thirdweb-dev/react";
 
@@ -39,8 +38,7 @@ export default function Home() {
         {/* Sign In Form */}
         <Card>
           <SignInWrapper>
-            <Title>DecentraPass</Title>
-            <Logo src="Logo.png"></Logo>
+            <Logo src="Logo_With_Name.png"></Logo>
             <ConnectEmbed />
           </SignInWrapper>
         </Card>
@@ -51,21 +49,16 @@ export default function Home() {
 
 // Styled components
 
-const Title = styled.h1`
-  font-size: 2.5vw;
-  text-align: center;
-`;
-
 const SignInWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2vw
 `;
 
 const Logo = styled.img`
-  width: 10vw;
-  margin: 2vw;
-  border-radius: 1.5vw;
+  height: 15vw;
+  border-radius: 2vw;
   box-shadow: 0px 0px 10px ${Colors.secondary};
 `;

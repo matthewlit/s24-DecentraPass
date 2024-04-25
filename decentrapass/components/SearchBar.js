@@ -31,9 +31,8 @@ const SearchBar = ({ onSearch }) => {
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
-  margin-top: 1vw;
   gap: 1vw;
+  width: 80%;
 `;
 
 const SearchInput = styled.input`
@@ -41,7 +40,7 @@ const SearchInput = styled.input`
   font-size: 1vw;
   border-radius: 0.5vw;
   border: none;
-  width: 42.5%;
+  width: 75%;
   &:active {
     transform: scale(0.99);
   }

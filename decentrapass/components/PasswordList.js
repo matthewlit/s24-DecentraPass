@@ -387,7 +387,6 @@ const PopupWrapper = styled.div`
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1vw;
   width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -431,7 +430,7 @@ const SmallLogo = styled.img`
 `;
 
 const BigLogo = styled.img`
-  width: 6vw;
+  width: 5vw;
   height: auto;
   border-radius: 2vw;
   background-color: ${Colors.secondary};

@@ -7,7 +7,6 @@ import FancyButton from "./FancyButton";
 import {
   useAddress,
 } from "@thirdweb-dev/react";
-import Card from "./Card";
 
 /**************************************************************************
   File: Navbar.js
@@ -63,12 +62,6 @@ const Navbar = () => {
       {/* Sign Out Button */}
       <SignOutButtonContainer>
         {/* Display User Address */}
-        <Card>
-          <UserInfo>
-            <InfoLabel>Connected Account:</InfoLabel>
-            <Info>{userAddress}</Info>
-          </UserInfo>
-        </Card>
         <FancyButton onClick={SignOut} active={false}>
           Sign Out
         </FancyButton>
@@ -82,7 +75,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1vw;
-  background: linear-gradient(180deg, ${Colors.backgroundLight} 0%, black 100%);
+  background: linear-gradient(180deg, ${Colors.backgroundDark} 0%, black 100%);
   border-right: 1vw black solid;
   position: fixed;
   height: 100%;
@@ -105,20 +98,6 @@ const NavButtonContainer = styled.div`
   align-items: center;
   gap: 1.5vw;
 `;
-
-const UserInfo = styled.div`
-  color: ${Colors.text};
-  word-wrap: break-word;
-  text-align: center;
-  width: 10vw;
-`;
-
-const InfoLabel = styled.p`
-  font-weight: bold;
-  padding-bottom: 1vw;
-`;
-
-const Info = styled.p``;
 
 const SignOutButtonContainer = styled.div`
   margin-top: auto;

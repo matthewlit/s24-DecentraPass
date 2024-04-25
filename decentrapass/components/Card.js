@@ -55,7 +55,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   position: relative;
   z-index: 1;
-  background: linear-gradient(0deg, ${Colors.backgroundLight} 10%, black 100%);
+  background: linear-gradient(180deg, ${Colors.secondary}, ${Colors.backgroundLight});
   border-radius: 1.5vw;
   padding: 2vw;
 `;

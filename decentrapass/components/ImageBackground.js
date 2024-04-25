@@ -40,7 +40,7 @@ const BackgroundImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 20%;
+  opacity: 15%;
 `;
 
 export default ImageBackground;
